@@ -12,6 +12,14 @@ const [orders, setOrders] = useState([])
     password: 'test'
 };
 
+const onLogin = (e:any) => {
+  console.log(e)
+}
+
+const onOrderSubmit = (e:any) => {
+  console.log(e)
+}
+
 // const headers = {
 //   'Access-Control-Allow-Origin': 'http://localhost:3000/'
 // };
@@ -40,14 +48,14 @@ const [orders, setOrders] = useState([])
          <div className="login">
          <TextField className="textField" id="standard-basic" label="Username" variant="standard" />
          <TextField className="textField" id="standard-basic" label="Password" variant="standard" />
-         <Button variant="contained">Login</Button>
+         <Button variant="contained" onClick={(e):void => onLogin(e)}>Login</Button>
          </div>
          <div className="orderForm">
          <TextField className="textField" id="standard-basic" label="Crust" variant="standard" />
          <TextField className="textField" id="standard-basic" label="Flavor" variant="standard" />
          <TextField className="textField" id="standard-basic" label="Size" variant="standard" />
          <TextField id="standard-basic" label="Table" variant="standard" />
-         <Button variant="contained">Submit</Button>
+         <Button variant="contained" onClick={(e):void => onOrderSubmit(e)}>Submit</Button>
          </div>
       {/* <Routes>
           {/* <Route path="/" element={<LoginPage />} /> 
