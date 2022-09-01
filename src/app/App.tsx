@@ -1,7 +1,6 @@
 import { Button, TextField } from '@mui/material';
 import axios from 'axios';
 import React, { ReactElement, useEffect, useState } from 'react';
-import { Route, Routes } from 'react-router-dom';
 import { Orders } from '../models';
 import './App.scss';
 
@@ -45,6 +44,11 @@ const onOrderSubmit = (e:any) => {
           <div>
         Dans Pizza Orders
          </div>
+          {/* <Routes>
+          {/* <Route path="/" element={<LoginPage />} /> 
+          {/* <Route path="/layout" element={<Layout />} />
+          <Route path="orders" element={<OrderScreen />} /> 
+        </Routes> */}
          <div className="login">
          <TextField className="textField" id="standard-basic" label="Username" variant="standard" />
          <TextField className="textField" id="standard-basic" label="Password" variant="standard" />
@@ -57,11 +61,6 @@ const onOrderSubmit = (e:any) => {
          <TextField id="standard-basic" label="Table" variant="standard" />
          <Button variant="contained" onClick={(e):void => onOrderSubmit(e)}>Submit</Button>
          </div>
-      {/* <Routes>
-          {/* <Route path="/" element={<LoginPage />} /> 
-          {/* <Route path="/layout" element={<Layout />} />
-          <Route path="orders" element={<OrderScreen />} /> 
-        </Routes> */}
         <div className="search">
         <TextField className="textField" id="standard-basic" label="Size" variant="standard" />
         </div>
