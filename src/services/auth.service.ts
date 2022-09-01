@@ -7,7 +7,7 @@ export const login = (): any => {
     const endpointUrl = 'auth';
 
     const headers = {
-        'Content-Type': 'application/json'
+        'Access-Control-Allow-Origin': 'https://localhost:3000/'
     };
 
     const payload = {
@@ -17,12 +17,13 @@ export const login = (): any => {
 
     return httpRequest(endpointUrl, httpMethod.Post, headers, payload)
         .then((response: any) => {
-            if (response.access_token) {
-                const { access_token } = response.access_token;
-                console.log("AT", access_token)
-                localStorage.setItem('access_token', access_token);
-                localStorage.setItem('isAuthenticated', 'true');
-            }
+           console.log(response)
+            // if (response.access_token) {
+            //     const { access_token } = response.access_token;
+            //     console.log("AT", access_token)
+            //     localStorage.setItem('access_token', access_token);
+            //     localStorage.setItem('isAuthenticated', 'true');
+            // }
 
             return response;
         })
