@@ -1,5 +1,5 @@
 import React, { ReactElement, useEffect } from 'react';
-import './App.css';
+import './App.scss';
 
 export const App = (): ReactElement => {
   useEffect(() => {
