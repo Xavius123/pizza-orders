@@ -46,17 +46,37 @@ export const authSlice = createSlice({
     extraReducers: (builder) => {
         builder
             // Get Orders
-            .addCase(GetOrdersAsync.pending, (state) => {})
-            .addCase(GetOrdersAsync.fulfilled, (state, action) => {})
-            .addCase(GetOrdersAsync.rejected, (state) => {})
+            .addCase(GetOrdersAsync.pending, (state) => {
+                state.statusGetOrdersAsync = AsyncRequestStatus.Pending;
+            })
+            .addCase(GetOrdersAsync.fulfilled, (state, action) => {
+                state.statusGetOrdersAsync = AsyncRequestStatus.Fulfilled;
+            })
+            .addCase(GetOrdersAsync.rejected, (state) => {
+                state.statusGetOrdersAsync = AsyncRequestStatus.Rejected;
+            })
             // Add Orders
-            .addCase(AddOrdersAsync.pending, (state) => {})
-            .addCase(AddOrdersAsync.fulfilled, (state, action) => {})
-            .addCase(AddOrdersAsync.rejected, (state) => {})
+            .addCase(AddOrdersAsync.pending, (state) => {
+                state.statusAddOrdersAsync = AsyncRequestStatus.Pending;
+            })
+            .addCase(AddOrdersAsync.fulfilled, (state, action) => {
+                state.statusAddOrdersAsync = AsyncRequestStatus.Fulfilled;
+            })
+            .addCase(AddOrdersAsync.rejected, (state) => {
+                state.statusAddOrdersAsync = AsyncRequestStatus.Rejected;
+            })
             // Delete Orders
-            .addCase(DeleteOrderAsync.pending, (state) => {})
-            .addCase(DeleteOrderAsync.fulfilled, (state, action) => {})
-            .addCase(DeleteOrderAsync.rejected, (state) => {});
+            .addCase(DeleteOrderAsync.pending, (state) => {
+                state.statusDeleteOrderAsync = AsyncRequestStatus.Pending;
+            })
+            .addCase(DeleteOrderAsync.fulfilled, (state, action) => {
+                state.statusDeleteOrderAsync = AsyncRequestStatus.Fulfilled;
+                // find the index of the order thats been deleted and remove it from current orders
+                // const orderList = orders.filter((data, i) => i !== indexToRemove);
+            })
+            .addCase(DeleteOrderAsync.rejected, (state) => {
+                state.statusDeleteOrderAsync = AsyncRequestStatus.Rejected;
+            });
     },
 });
 

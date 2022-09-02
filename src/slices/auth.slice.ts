@@ -25,9 +25,16 @@ export const authSlice = createSlice({
     extraReducers: (builder) => {
         builder
             // LOGIN
-            .addCase(LoginAsync.pending, (state) => {})
-            .addCase(LoginAsync.fulfilled, (state, action) => {})
-            .addCase(LoginAsync.rejected, (state) => {});
+            .addCase(LoginAsync.pending, (state) => {
+                state.statusLogIn = AsyncRequestStatus.Pending;
+            })
+            .addCase(LoginAsync.fulfilled, (state, action) => {
+                state.statusLogIn = AsyncRequestStatus.Fulfilled;
+                state.isLoginSuccessful = true;
+            })
+            .addCase(LoginAsync.rejected, (state) => {
+                state.statusLogIn = AsyncRequestStatus.Rejected;
+            });
     },
 });
 
