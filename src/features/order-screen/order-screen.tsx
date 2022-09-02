@@ -47,7 +47,7 @@ export const OrderScreen = (): ReactElement => {
     });
 
     const [orders, setOrders] = useState(testOrders);
-    const [searchValue, setSearchValue] = useState('');
+    const [searchValue, setSearchValue] = useState();
 
     const onOrderSubmit = (e: any) => {
         console.log('onOrderSubmit', e);
@@ -58,8 +58,12 @@ export const OrderScreen = (): ReactElement => {
     };
 
     const handleSearch = (e: any) => {
-        console.log('handleSearch', e);
-        // setSearchValue(e);
+        console.log('handleSearch', e.target.value);
+        setSearchValue(e.target.value);
+
+        const newList = orders.filter((order, i) => order === searchValue);
+
+        setOrders(newList);
     };
 
     return (
@@ -101,7 +105,7 @@ export const OrderScreen = (): ReactElement => {
                 <TextField
                     className="textField"
                     value={searchValue}
-                    onChange={(e): void => handleSearch(e)}
+                    onChange={(e: any): void => handleSearch(e)}
                     label="Size"
                     variant="standard"
                 />
@@ -110,32 +114,26 @@ export const OrderScreen = (): ReactElement => {
                 {orders?.map((order: Orders) => (
                     <div key={order.Order_ID} className="order">
                         <div className="order__item">
-                            {' '}
-                            <div className="order__name">Crust</div>{' '}
+                            <div className="order__name">Crust</div>
                             {order.Crust}
                         </div>
                         <div className="order__item">
-                            {' '}
-                            <div className="order__name">Flavor</div>{' '}
+                            <div className="order__name">Flavor</div>
                             {order.Flavor}
                         </div>
                         <div className="order__item">
-                            {' '}
-                            <div className="order__name">Order Number</div>{' '}
+                            <div className="order__name">Order Number</div>
                             {order.Order_ID}
                         </div>
                         <div className="order__item">
-                            {' '}
                             <div className="order__name">Size</div> {order.Size}
                         </div>
                         <div className="order__item">
-                            {' '}
-                            <div className="order__name">Table</div>{' '}
+                            <div className="order__name">Table</div>
                             {order.Table_No}
                         </div>
                         <div className="order__item">
-                            {' '}
-                            <div className="order__name">Time</div>{' '}
+                            <div className="order__name">Time</div>
                             {order.Timestamp}
                         </div>
                         <Button
