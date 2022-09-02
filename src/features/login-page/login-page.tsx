@@ -6,7 +6,6 @@ import * as yup from 'yup';
 import './login-page.scss';
 
 export const LoginPage = (): ReactElement => {
-    const [placeholder, setPlaceholder] = useState('login page');
     const loginSchema = yup.object({
         username: yup.string(),
         password: yup.string(),
@@ -17,7 +16,7 @@ export const LoginPage = (): ReactElement => {
     });
 
     const onLogin = (e: any) => {
-        console.log(e);
+        console.log('onLogin', e);
     };
 
     return (

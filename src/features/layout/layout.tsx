@@ -1,7 +1,6 @@
 import React, { ReactElement, useState } from 'react';
 
 export const Layout = (): ReactElement => {
-    //  const [placeholder, setPlaceholder] = useState('layout');
     // useEffect(() => {
     //     console.log('App page');
     //     // axios({

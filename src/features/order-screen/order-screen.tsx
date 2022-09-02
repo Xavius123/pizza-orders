@@ -8,7 +8,6 @@ import { Orders } from '../../models';
 import './order-screen.scss';
 
 export const OrderScreen = (): ReactElement => {
-    // const [placeholder, setPlaceholder] = useState('order screen');
     const testOrders = [
         {
             Crust: 'NORMAL',
@@ -40,7 +39,7 @@ export const OrderScreen = (): ReactElement => {
         Crust: yup.string(),
         Flavor: yup.string(),
         Size: yup.string(),
-        Table_No: yup.number(),
+        Table_No: yup.string(),
     });
 
     const { register, handleSubmit } = useForm({
@@ -51,40 +50,49 @@ export const OrderScreen = (): ReactElement => {
     const [searchValue, setSearchValue] = useState('');
 
     const onOrderSubmit = (e: any) => {
-        console.log(e);
+        console.log('onOrderSubmit', e);
     };
 
     const onOrderDelete = (e: any) => {
-        console.log(e);
+        console.log('onOrderDelete', e);
     };
 
     const handleSearch = (e: any) => {
-        console.log(e);
+        console.log('handleSearch', e);
+        // setSearchValue(e);
     };
+
     return (
         <div className="order-page">
             <div>Order Form</div>
             <div className="orderForm">
                 <TextField
                     className="textField"
+                    {...register('Crust')}
                     label="Crust"
                     variant="standard"
                 />
                 <TextField
                     className="textField"
+                    {...register('Flavor')}
                     label="Flavor"
                     variant="standard"
                 />
                 <TextField
                     className="textField"
+                    {...register('Size')}
                     label="Size"
                     variant="standard"
                 />
-                <TextField label="Table" variant="standard" />
+                <TextField
+                    {...register('Table_No')}
+                    label="Table"
+                    variant="standard"
+                />
                 <Button
                     variant="contained"
                     size="medium"
-                    onClick={(e): void => onOrderSubmit(e)}
+                    onClick={handleSubmit(onOrderSubmit)}
                 >
                     Submit
                 </Button>
