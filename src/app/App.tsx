@@ -1,8 +1,11 @@
-import { Button, TextField } from '@mui/material'
-import axios from 'axios'
-import React, { ReactElement, useEffect, useState } from 'react'
-import { Orders } from '../models'
-import './App.scss'
+import { Button, TextField } from '@mui/material';
+import axios from 'axios';
+import React, { ReactElement, useEffect, useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
+import { Orders } from '../models';
+import './App.scss';
 
 export const App = (): ReactElement => {
     const testOrders = [
@@ -30,36 +33,53 @@ export const App = (): ReactElement => {
             Table_No: 9,
             Timestamp: '2022-09-01T22:02:41.548984',
         },
-    ]
-    const [orders, setOrders] = useState(testOrders)
-    const [searchValue, setSearchValue] = useState('')
-    const payload = {
-        username: 'test',
-        password: 'test',
-    }
+    ];
+
+    const loginSchema = yup.object({
+        username: yup.string(),
+        password: yup.string(),
+    });
+
+    const OrderSchema = yup.object({
+        Crust: yup.string(),
+        Flavor: yup.string(),
+        Size: yup.string(),
+        Table_No: yup.number(),
+    });
+
+    const { register, handleSubmit } = useForm({
+        resolver: yupResolver(loginSchema),
+    });
+
+    // const { register, handleSubmit } = useForm({
+    //     resolver: yupResolver(OrderSchema),
+    // });
+
+    const [orders, setOrders] = useState(testOrders);
+    const [searchValue, setSearchValue] = useState('');
 
     const onLogin = (e: any) => {
-        console.log(e)
-    }
+        console.log(e);
+    };
 
     const onOrderSubmit = (e: any) => {
-        console.log(e)
-    }
+        console.log(e);
+    };
 
     const onOrderDelete = (e: any) => {
-        console.log(e)
-    }
+        console.log(e);
+    };
 
     const handleSearch = (e: any) => {
-        console.log(e)
-    }
+        console.log(e);
+    };
 
     // const headers = {
     //   'Access-Control-Allow-Origin': 'http://localhost:3000/'
     // };
 
     useEffect(() => {
-        console.log('App page')
+        console.log('App page');
         // axios({
         //     baseURL: 'https://order-pizza-api.herokuapp.com/api/',
         //     url: 'auth',
@@ -72,7 +92,7 @@ export const App = (): ReactElement => {
         //       console.log(response)
         //     })
         //     .catch((error: any) => error);
-    }, [])
+    }, []);
 
     return (
         <div className="App">
@@ -85,18 +105,20 @@ export const App = (): ReactElement => {
             <div className="login">
                 <TextField
                     className="textField"
+                    {...register('username')}
                     label="Username"
                     variant="standard"
                 />
                 <TextField
                     className="textField"
+                    {...register('password')}
                     label="Password"
                     variant="standard"
                 />
                 <Button
                     variant="contained"
                     size="medium"
-                    onClick={(e): void => onLogin(e)}
+                    onClick={handleSubmit(onLogin)}
                 >
                     Login
                 </Button>
@@ -178,7 +200,7 @@ export const App = (): ReactElement => {
                 ))}
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default App
+export default App;
