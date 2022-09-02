@@ -7,17 +7,17 @@ export const login = (): any => {
     const endpointUrl = 'auth';
 
     const headers = {
-        'Access-Control-Allow-Origin': 'https://localhost:3000/'
+        'Access-Control-Allow-Origin': 'https://localhost:3000/',
     };
 
     const payload = {
         username: 'test',
-        password: 'test'
+        password: 'test',
     };
 
     return httpRequest(endpointUrl, httpMethod.Post, headers, payload)
         .then((response: any) => {
-           console.log(response)
+            console.log(response);
             // if (response.access_token) {
             //     const { access_token } = response.access_token;
             //     console.log("AT", access_token)
@@ -43,7 +43,7 @@ const httpRequest = (
         headers,
         data,
         withCredentials: true,
-        responseType: 'json'
+        responseType: 'json',
     })
         .then((response: any) => response)
         .catch((error: any) => error);

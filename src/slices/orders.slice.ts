@@ -14,23 +14,32 @@ const initialState: OrderState = {
     orders: [],
     statusGetOrdersAsync: AsyncRequestStatus.Idle,
     statusAddOrdersAsync: AsyncRequestStatus.Idle,
-    statusDeleteOrderAsync: AsyncRequestStatus.Idle
+    statusDeleteOrderAsync: AsyncRequestStatus.Idle,
 };
 
-export const GetOrdersAsync = createAsyncThunk('orders/GetOrder', async (request: string) => {
-    const response = await GetOrders(request);
-    return response;
-});
+export const GetOrdersAsync = createAsyncThunk(
+    'orders/GetOrder',
+    async (request: string) => {
+        const response = await GetOrders(request);
+        return response;
+    }
+);
 
-export const AddOrdersAsync = createAsyncThunk('orders/AddOrder', async (request: string) => {
-    const response = await AddOrders(request);
-    return response;
-});
+export const AddOrdersAsync = createAsyncThunk(
+    'orders/AddOrder',
+    async (request: string) => {
+        const response = await AddOrders(request);
+        return response;
+    }
+);
 
-export const DeleteOrderAsync = createAsyncThunk('orders/DeleteOrder', async (order: number) => {
-    const response = await DeleteOrder(order);
-    return response;
-});
+export const DeleteOrderAsync = createAsyncThunk(
+    'orders/DeleteOrder',
+    async (order: number) => {
+        const response = await DeleteOrder(order);
+        return response;
+    }
+);
 
 export const authSlice = createSlice({
     name: 'orders',
@@ -50,7 +59,7 @@ export const authSlice = createSlice({
             .addCase(DeleteOrderAsync.pending, (state) => {})
             .addCase(DeleteOrderAsync.fulfilled, (state, action) => {})
             .addCase(DeleteOrderAsync.rejected, (state) => {});
-    }
+    },
 });
 
 export const AuthSelector = (state: RootState): any => state.auth;

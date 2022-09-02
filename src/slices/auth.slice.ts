@@ -10,7 +10,7 @@ export interface AuthState {
 
 const initialState: AuthState = {
     isLoginSuccessful: false,
-    statusLogIn: AsyncRequestStatus.Idle
+    statusLogIn: AsyncRequestStatus.Idle,
 };
 
 export const LoginAsync = createAsyncThunk('auth/Login', async () => {
@@ -28,7 +28,7 @@ export const authSlice = createSlice({
             .addCase(LoginAsync.pending, (state) => {})
             .addCase(LoginAsync.fulfilled, (state, action) => {})
             .addCase(LoginAsync.rejected, (state) => {});
-    }
+    },
 });
 
 export const AuthSelector = (state: RootState): any => state.auth;
