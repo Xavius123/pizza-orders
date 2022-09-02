@@ -27,3 +27,22 @@
   margin: 20px;
   padding: 20px;
 }
+
+.orders {
+  display: flex;
+  flex-direction: column;
+}
+
+
+.order {
+  display: flex;
+  flex-direction: column;
+  //.order__item
+  &__item {
+    display: flex;
+  }
+  //.order__name
+  &__name {
+    font-weight: bold;
+  }
+}
