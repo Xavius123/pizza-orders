@@ -3,7 +3,7 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  text-align: center;
+  font-size: 25px;
 }
 
 .login {
@@ -37,6 +37,7 @@
 
 
 .order {
+  font-size: 15px;
   display: flex;
   flex-direction: column;
   //.order__item

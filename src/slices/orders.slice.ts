@@ -17,17 +17,17 @@ const initialState: OrderState = {
     statusDeleteOrderAsync: AsyncRequestStatus.Idle
 };
 
-export const GetOrdersAsync = createAsyncThunk('auth/GetOrder', async (request: string) => {
+export const GetOrdersAsync = createAsyncThunk('orders/GetOrder', async (request: string) => {
     const response = await GetOrders(request);
     return response;
 });
 
-export const AddOrdersAsync = createAsyncThunk('auth/AddOrder', async (request: string) => {
+export const AddOrdersAsync = createAsyncThunk('orders/AddOrder', async (request: string) => {
     const response = await AddOrders(request);
     return response;
 });
 
-export const DeleteOrderAsync = createAsyncThunk('auth/DeleteOrder', async (order: number) => {
+export const DeleteOrderAsync = createAsyncThunk('orders/DeleteOrder', async (order: number) => {
     const response = await DeleteOrder(order);
     return response;
 });
