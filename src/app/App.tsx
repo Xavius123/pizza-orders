@@ -32,7 +32,7 @@ export const App = (): ReactElement => {
     }
   ];
 const [orders, setOrders] = useState(testOrders)
-const [searchValue, setSearchValue] = useState()
+const [searchValue, setSearchValue] = useState("")
   const payload = {
     username: 'test',
     password: 'test'
