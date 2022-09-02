@@ -1,0 +1,32 @@
+.order-page {
+    display: flex;
+    flex-direction: column;
+}
+
+.orderForm {
+    border: 1px solid gray;
+    border-radius: 15px;
+    padding: 10px;
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+}
+
+.orders {
+    display: flex;
+    flex-direction: column;
+}
+
+.order {
+    font-size: 15px;
+    display: flex;
+    flex-direction: column;
+    //.order__item
+    &__item {
+        display: flex;
+    }
+    //.order__name
+    &__name {
+        font-weight: bold;
+    }
+}
