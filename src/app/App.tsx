@@ -6,6 +6,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { Orders } from '../models';
 import './App.scss';
+import { Link } from 'react-router-dom';
 
 export const App = (): ReactElement => {
     const testOrders = [
@@ -35,11 +36,6 @@ export const App = (): ReactElement => {
         },
     ];
 
-    const loginSchema = yup.object({
-        username: yup.string(),
-        password: yup.string(),
-    });
-
     const OrderSchema = yup.object({
         Crust: yup.string(),
         Flavor: yup.string(),
@@ -48,19 +44,11 @@ export const App = (): ReactElement => {
     });
 
     const { register, handleSubmit } = useForm({
-        resolver: yupResolver(loginSchema),
+        resolver: yupResolver(OrderSchema),
     });
-
-    // const { register, handleSubmit } = useForm({
-    //     resolver: yupResolver(OrderSchema),
-    // });
 
     const [orders, setOrders] = useState(testOrders);
     const [searchValue, setSearchValue] = useState('');
-
-    const onLogin = (e: any) => {
-        console.log(e);
-    };
 
     const onOrderSubmit = (e: any) => {
         console.log(e);
@@ -73,10 +61,6 @@ export const App = (): ReactElement => {
     const handleSearch = (e: any) => {
         console.log(e);
     };
-
-    // const headers = {
-    //   'Access-Control-Allow-Origin': 'http://localhost:3000/'
-    // };
 
     useEffect(() => {
         console.log('App page');
@@ -97,32 +81,15 @@ export const App = (): ReactElement => {
     return (
         <div className="App">
             <div>Dans Pizza Orders</div>
+            <nav>
+                <Link to="/login">Login</Link>
+                <Link to="/orderForm">Order Form</Link>
+            </nav>
             {/* <Routes>
           {/* <Route path="/" element={<LoginPage />} /> 
           {/* <Route path="/layout" element={<Layout />} />
           <Route path="orders" element={<OrderScreen />} /> 
         </Routes> */}
-            <div className="login">
-                <TextField
-                    className="textField"
-                    {...register('username')}
-                    label="Username"
-                    variant="standard"
-                />
-                <TextField
-                    className="textField"
-                    {...register('password')}
-                    label="Password"
-                    variant="standard"
-                />
-                <Button
-                    variant="contained"
-                    size="medium"
-                    onClick={handleSubmit(onLogin)}
-                >
-                    Login
-                </Button>
-            </div>
             <div className="orderForm">
                 <TextField
                     className="textField"

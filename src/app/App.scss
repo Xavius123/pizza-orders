@@ -1,51 +1,40 @@
 .App {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  font-size: 25px;
-}
-
-.login {
-  border: 1px solid gray;
-  border-radius: 15px;
-  padding: 10px;
-  width: 300px;
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    font-size: 25px;
 }
 
 .orderForm {
-  border: 1px solid gray;
-  border-radius: 15px;
-  padding: 10px;
-  width: 300px;
-  display: flex;
-  flex-direction: column;
+    border: 1px solid gray;
+    border-radius: 15px;
+    padding: 10px;
+    width: 300px;
+    display: flex;
+    flex-direction: column;
 }
 
 .textField {
-  margin: 20px;
-  padding: 20px;
+    margin: 20px;
+    padding: 20px;
 }
 
 .orders {
-  display: flex;
-  flex-direction: column;
+    display: flex;
+    flex-direction: column;
 }
 
-
 .order {
-  font-size: 15px;
-  display: flex;
-  flex-direction: column;
-  //.order__item
-  &__item {
+    font-size: 15px;
     display: flex;
-  }
-  //.order__name
-  &__name {
-    font-weight: bold;
-  }
+    flex-direction: column;
+    //.order__item
+    &__item {
+        display: flex;
+    }
+    //.order__name
+    &__name {
+        font-weight: bold;
+    }
 }
