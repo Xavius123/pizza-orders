@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { AsyncRequestStatus } from '../enums/async-request-status.enum';
+import { OrderForm } from '../models';
 import { AddOrders, DeleteOrder, GetOrders } from '../services';
 import { RootState } from '../store/store';
 
@@ -17,17 +18,14 @@ const initialState: OrderState = {
     statusDeleteOrderAsync: AsyncRequestStatus.Idle,
 };
 
-export const GetOrdersAsync = createAsyncThunk(
-    'orders/GetOrder',
-    async (request: string) => {
-        const response = await GetOrders(request);
-        return response;
-    }
-);
+export const GetOrdersAsync = createAsyncThunk('orders/GetOrder', async () => {
+    const response = await GetOrders();
+    return response;
+});
 
 export const AddOrdersAsync = createAsyncThunk(
     'orders/AddOrder',
-    async (request: string) => {
+    async (request: OrderForm) => {
         const response = await AddOrders(request);
         return response;
     }
