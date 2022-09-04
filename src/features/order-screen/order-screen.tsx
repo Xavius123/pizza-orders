@@ -1,12 +1,15 @@
 import { Button, TextField } from '@mui/material';
-import React, { ReactElement, useState } from 'react';
+import React, { ReactElement, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import { Orders } from '../../models';
+import { Order } from '../../models';
 import './order-screen.scss';
+import { useAppDispatch } from '../../hooks/hooks';
+import { GetOrdersAsync } from '../../slices/orders.slice';
 
 export const OrderScreen = (): ReactElement => {
+    const dispatch = useAppDispatch();
     const testOrders = [
         {
             Crust: 'NORMAL',
@@ -65,6 +68,11 @@ export const OrderScreen = (): ReactElement => {
         setOrders(newList);
     };
 
+    useEffect(() => {
+        console.log('order page');
+        dispatch(GetOrdersAsync());
+    }, []);
+
     return (
         <div className="order-page">
             <div>Order Form</div>
@@ -110,7 +118,7 @@ export const OrderScreen = (): ReactElement => {
                 />
             </div>
             <div className="orders">
-                {orders?.map((order: Orders) => (
+                {orders?.map((order: Order) => (
                     <div key={order.Order_ID} className="order">
                         <div className="order__item">
                             <div className="order__name">Crust</div>

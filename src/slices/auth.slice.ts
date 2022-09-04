@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { AsyncRequestStatus } from '../enums';
 import { RootState } from '../store/store';
 import { login } from '../services/auth.service';
+import { Login } from '../models';
 
 export interface AuthState {
     isLoginSuccessful: boolean;
@@ -13,10 +14,13 @@ const initialState: AuthState = {
     statusLogIn: AsyncRequestStatus.Idle,
 };
 
-export const LoginAsync = createAsyncThunk('auth/Login', async () => {
-    const response = await login();
-    return response;
-});
+export const LoginAsync = createAsyncThunk(
+    'auth/Login',
+    async (request: Login) => {
+        const response = await login(request);
+        return response;
+    }
+);
 
 export const authSlice = createSlice({
     name: 'auth',
@@ -24,7 +28,7 @@ export const authSlice = createSlice({
     reducers: {},
     extraReducers: (builder) => {
         builder
-            // LOGIN
+            // Login
             .addCase(LoginAsync.pending, (state) => {
                 state.statusLogIn = AsyncRequestStatus.Pending;
             })

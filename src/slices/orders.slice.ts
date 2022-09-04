@@ -1,11 +1,11 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { AsyncRequestStatus } from '../enums/async-request-status.enum';
-import { OrderForm } from '../models';
+import { Order, OrderForm } from '../models';
 import { AddOrders, DeleteOrder, GetOrders } from '../services';
 import { RootState } from '../store/store';
 
 export interface OrderState {
-    orders: [];
+    orders: Order[];
     statusGetOrdersAsync: AsyncRequestStatus;
     statusAddOrdersAsync: AsyncRequestStatus;
     statusDeleteOrderAsync: AsyncRequestStatus;
@@ -61,6 +61,9 @@ export const authSlice = createSlice({
             })
             .addCase(AddOrdersAsync.fulfilled, (state, action) => {
                 state.statusAddOrdersAsync = AsyncRequestStatus.Fulfilled;
+                const newOrder: Order = action.payload;
+                // might need to map over return object to become correct model
+                state.orders = [newOrder, ...state.orders];
             })
             .addCase(AddOrdersAsync.rejected, (state) => {
                 state.statusAddOrdersAsync = AsyncRequestStatus.Rejected;
@@ -73,6 +76,7 @@ export const authSlice = createSlice({
                 state.statusDeleteOrderAsync = AsyncRequestStatus.Fulfilled;
                 // find the index of the order thats been deleted and remove it from current orders
                 // const orderList = orders.filter((data, i) => i !== indexToRemove);
+                // reassign to state
             })
             .addCase(DeleteOrderAsync.rejected, (state) => {
                 state.statusDeleteOrderAsync = AsyncRequestStatus.Rejected;

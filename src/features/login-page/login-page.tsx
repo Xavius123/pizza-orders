@@ -4,8 +4,13 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import './login-page.scss';
+import { Login } from '../../models';
+import { useAppDispatch } from '../../hooks/hooks';
+import { LoginAsync } from '../../slices/auth.slice';
 
 export const LoginPage = (): ReactElement => {
+    const dispatch = useAppDispatch();
+
     const loginSchema = yup.object({
         username: yup.string(),
         password: yup.string(),
@@ -16,7 +21,13 @@ export const LoginPage = (): ReactElement => {
     });
 
     const onLogin = (e: any) => {
-        console.log('onLogin', e);
+        console.log('username', e.username);
+        console.log('password', e.password);
+        const request: Login = {
+            username: 'test',
+            password: 'test',
+        };
+        dispatch(LoginAsync(request));
     };
 
     return (
