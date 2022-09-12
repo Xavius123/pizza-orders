@@ -5,11 +5,14 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import './login-page.scss';
 import { Login } from '../../models';
-import { useAppDispatch } from '../../hooks/hooks';
-import { LoginAsync } from '../../slices/auth.slice';
+import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
+import { AuthSelector, LoginAsync } from '../../slices/auth.slice';
+import { Navigate } from 'react-router-dom';
+import { FeatureHeader } from '../shared/feature-header/feature-header';
 
 export const LoginPage = (): ReactElement => {
     const dispatch = useAppDispatch();
+    const { isLoginSuccessful } = useAppSelector(AuthSelector);
 
     const loginSchema = yup.object({
         username: yup.string(),
@@ -28,9 +31,13 @@ export const LoginPage = (): ReactElement => {
         dispatch(LoginAsync(request));
     };
 
+    if (isLoginSuccessful) {
+        return <Navigate to="/layout/orders" />;
+    }
+
     return (
-        <div>
-            <div>Login Page</div>
+        <div className="login-page">
+            <FeatureHeader headerText="Login Page" />
             <div className="login">
                 <TextField
                     className="textField"

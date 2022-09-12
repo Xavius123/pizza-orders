@@ -2,9 +2,8 @@ import { httpMethod } from '../enums/http-method.enum';
 import { Login } from '../models';
 import { httpRequest } from './http.service';
 
-const url = '/api/auth';
-
 export const login = (request: Login): any => {
+    const url = '/api/auth';
     const payload = {
         username: request.username,
         password: request.password,
@@ -16,7 +15,6 @@ export const login = (request: Login): any => {
                 const { access_token } = response.data;
                 console.log('AT', access_token);
                 localStorage.setItem('access_token', access_token);
-                localStorage.setItem('isAuthenticated', 'true');
             }
 
             return response;

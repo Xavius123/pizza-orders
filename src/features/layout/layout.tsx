@@ -1,24 +1,17 @@
-import React, { ReactElement, useState } from 'react';
+import React, { ReactElement } from 'react';
+import { Navigate, Outlet } from 'react-router-dom';
+import { useAppSelector } from '../../hooks/hooks';
+import { AuthSelector } from '../../slices/auth.slice';
 
 export const Layout = (): ReactElement => {
-    // useEffect(() => {
-    //     console.log('App page');
-    //     // axios({
-    //     //     baseURL: 'https://order-pizza-api.herokuapp.com/api/',
-    //     //     url: 'auth',
-    //     //     method: "post",
-    //     //     data: payload,
-    //     //     withCredentials: true,
-    //     //     responseType: 'json'
-    //     // })
-    //     //     .then((response: any) => {
-    //     //       console.log(response)
-    //     //     })
-    //     //     .catch((error: any) => error);
-    // }, []);
+    const { isLoginSuccessful } = useAppSelector(AuthSelector);
+    if (!isLoginSuccessful) {
+        return <Navigate to="/" />;
+    }
+
     return (
-        <div>
-            <div>layout</div>
+        <div className="layout">
+            <Outlet />
         </div>
     );
 };

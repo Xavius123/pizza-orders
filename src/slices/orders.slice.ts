@@ -4,14 +4,14 @@ import { Order, OrderForm } from '../models';
 import { AddOrders, DeleteOrder, GetOrders } from '../services';
 import { RootState } from '../store/store';
 
-export interface OrderState {
+export interface OrdersState {
     orders: Order[];
     statusGetOrdersAsync: AsyncRequestStatus;
     statusAddOrdersAsync: AsyncRequestStatus;
     statusDeleteOrderAsync: AsyncRequestStatus;
 }
 
-const initialState: OrderState = {
+const initialState: OrdersState = {
     orders: [],
     statusGetOrdersAsync: AsyncRequestStatus.Idle,
     statusAddOrdersAsync: AsyncRequestStatus.Idle,
@@ -23,7 +23,7 @@ export const GetOrdersAsync = createAsyncThunk('orders/GetOrder', async () => {
     return response;
 });
 
-export const AddOrdersAsync = createAsyncThunk(
+export const AddOrderAsync = createAsyncThunk(
     'orders/AddOrder',
     async (request: OrderForm) => {
         const response = await AddOrders(request);
@@ -39,7 +39,7 @@ export const DeleteOrderAsync = createAsyncThunk(
     }
 );
 
-export const authSlice = createSlice({
+export const ordersSlice = createSlice({
     name: 'orders',
     initialState,
     reducers: {},
@@ -51,21 +51,22 @@ export const authSlice = createSlice({
             })
             .addCase(GetOrdersAsync.fulfilled, (state, action) => {
                 state.statusGetOrdersAsync = AsyncRequestStatus.Fulfilled;
+                state.orders = action.payload.data;
             })
             .addCase(GetOrdersAsync.rejected, (state) => {
                 state.statusGetOrdersAsync = AsyncRequestStatus.Rejected;
             })
             // Add Orders
-            .addCase(AddOrdersAsync.pending, (state) => {
+            .addCase(AddOrderAsync.pending, (state) => {
                 state.statusAddOrdersAsync = AsyncRequestStatus.Pending;
             })
-            .addCase(AddOrdersAsync.fulfilled, (state, action) => {
+            .addCase(AddOrderAsync.fulfilled, (state, action) => {
                 state.statusAddOrdersAsync = AsyncRequestStatus.Fulfilled;
                 const newOrder: Order = action.payload;
                 // might need to map over return object to become correct model
                 state.orders = [newOrder, ...state.orders];
             })
-            .addCase(AddOrdersAsync.rejected, (state) => {
+            .addCase(AddOrderAsync.rejected, (state) => {
                 state.statusAddOrdersAsync = AsyncRequestStatus.Rejected;
             })
             // Delete Orders
@@ -84,6 +85,6 @@ export const authSlice = createSlice({
     },
 });
 
-export const AuthSelector = (state: RootState): any => state.auth;
+export const OrderSelector = (state: RootState): any => state.orders;
 
-export default authSlice.reducer;
+export default ordersSlice.reducer;

@@ -5,37 +5,15 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { Order } from '../../models';
 import './order-screen.scss';
-import { useAppDispatch } from '../../hooks/hooks';
-import { GetOrdersAsync } from '../../slices/orders.slice';
+import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
+import { GetOrdersAsync, OrderSelector } from '../../slices/orders.slice';
+import { AuthSelector } from '../../slices/auth.slice';
+import { FeatureHeader } from '../shared/feature-header/feature-header';
 
 export const OrderScreen = (): ReactElement => {
     const dispatch = useAppDispatch();
-    const testOrders = [
-        {
-            Crust: 'NORMAL',
-            Flavor: 'BEEF-NORMAL',
-            Order_ID: 1,
-            Size: 'M',
-            Table_No: 1,
-            Timestamp: '2019-12-03T18:21:08.669365',
-        },
-        {
-            Crust: 'NORMAL',
-            Flavor: 'CHICKEN-FAJITA',
-            Order_ID: 3,
-            Size: 'L',
-            Table_No: 3,
-            Timestamp: '2019-12-03T18:21:08.710006',
-        },
-        {
-            Crust: 'Thin',
-            Flavor: 'Beef',
-            Order_ID: 4,
-            Size: 'M',
-            Table_No: 9,
-            Timestamp: '2022-09-01T22:02:41.548984',
-        },
-    ];
+    const { orders } = useAppSelector(OrderSelector);
+    const { isLoginSuccessful } = useAppSelector(AuthSelector);
 
     const OrderSchema = yup.object({
         Crust: yup.string(),
@@ -48,22 +26,29 @@ export const OrderScreen = (): ReactElement => {
         resolver: yupResolver(OrderSchema),
     });
 
-    const [orders, setOrders] = useState(testOrders);
+    const [ordersTest, setOrders] = useState(orders);
     const [searchValue, setSearchValue] = useState();
 
-    const onOrderSubmit = (e: any) => {
+    const onOrderSubmit = (e: any): void => {
         console.log('onOrderSubmit', e);
     };
 
-    const onOrderDelete = (e: any) => {
+    const onOrderDelete = (e: any): void => {
         console.log('onOrderDelete', e);
     };
+
+    // const onlogOut = (): void => {
+    //     console.log('onlogOut');
+    //     sessionStorage.clear();
+    // };
 
     const handleSearch = (e: any) => {
         console.log('handleSearch', e.target.value);
         setSearchValue(e.target.value);
 
-        const newList = orders.filter((order, i) => order === searchValue);
+        const newList = ordersTest.filter(
+            (order: Order, i: any) => order === searchValue
+        );
 
         setOrders(newList);
     };
@@ -73,9 +58,17 @@ export const OrderScreen = (): ReactElement => {
         dispatch(GetOrdersAsync());
     }, []);
 
+    useEffect(() => {
+        setOrders(orders);
+    }, [orders, isLoginSuccessful]);
+
+    // if (isLoginSuccessful) {
+    //     return <Navigate to="/" />;
+    // }
+
     return (
         <div className="order-page">
-            <div>Order Form</div>
+            <FeatureHeader headerText="Order Form" />
             <div className="orderForm">
                 <TextField
                     className="textField"
@@ -118,7 +111,7 @@ export const OrderScreen = (): ReactElement => {
                 />
             </div>
             <div className="orders">
-                {orders?.map((order: Order) => (
+                {ordersTest?.map((order: Order) => (
                     <div key={order.Order_ID} className="order">
                         <div className="order__item">
                             <div className="order__name">Crust</div>
@@ -145,7 +138,7 @@ export const OrderScreen = (): ReactElement => {
                         </div>
                         <Button
                             variant="outlined"
-                            size="small"
+                            size="medium"
                             onClick={(e): void => onOrderDelete(e)}
                         >
                             X
@@ -153,6 +146,13 @@ export const OrderScreen = (): ReactElement => {
                     </div>
                 ))}
             </div>
+            {/* <Button
+                variant="contained"
+                size="medium"
+                onClick={(): void => onlogOut()}
+            >
+                LogOut
+            </Button> */}
         </div>
     );
 };
