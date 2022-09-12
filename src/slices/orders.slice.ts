@@ -33,8 +33,8 @@ export const AddOrderAsync = createAsyncThunk(
 
 export const DeleteOrderAsync = createAsyncThunk(
     'orders/DeleteOrder',
-    async (order: number) => {
-        const response = await DeleteOrder(order);
+    async (orderNumber: number) => {
+        const response = await DeleteOrder(orderNumber);
         return response;
     }
 );
@@ -75,9 +75,19 @@ export const ordersSlice = createSlice({
             })
             .addCase(DeleteOrderAsync.fulfilled, (state, action) => {
                 state.statusDeleteOrderAsync = AsyncRequestStatus.Fulfilled;
-                // find the index of the order thats been deleted and remove it from current orders
-                // const orderList = orders.filter((data, i) => i !== indexToRemove);
-                // reassign to state
+
+                const deletedOrderNumber = action.meta.arg;
+                // const orderss = state.orders;
+                // console.log('orders', orderss);
+                // const orderList = orderss.filter(
+                //     (order) => order.Order_ID !== deletedOrderNumber
+                // );
+                state.orders = [
+                    ...state.orders.filter(
+                        (order) => order.Order_ID !== deletedOrderNumber
+                    ),
+                ];
+                //console.log('newList', orderList);
             })
             .addCase(DeleteOrderAsync.rejected, (state) => {
                 state.statusDeleteOrderAsync = AsyncRequestStatus.Rejected;

@@ -15,7 +15,7 @@ export const GetOrders = (): any => {
 
 export const AddOrders = (request: OrderForm): any => {
     const url = '/api/orders';
-    const payload = {};
+    const payload = request;
     return httpRequest(url, httpMethod.Post, payload)
         .then((response: any) => {
             console.log(response);

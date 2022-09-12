@@ -3,10 +3,15 @@ import React, { ReactElement, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import { Order } from '../../models';
+import { Order, OrderForm } from '../../models';
 import './order-screen.scss';
 import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
-import { GetOrdersAsync, OrderSelector } from '../../slices/orders.slice';
+import {
+    GetOrdersAsync,
+    OrderSelector,
+    AddOrderAsync,
+    DeleteOrderAsync,
+} from '../../slices/orders.slice';
 import { AuthSelector } from '../../slices/auth.slice';
 import { FeatureHeader } from '../shared/feature-header/feature-header';
 
@@ -19,7 +24,7 @@ export const OrderScreen = (): ReactElement => {
         Crust: yup.string(),
         Flavor: yup.string(),
         Size: yup.string(),
-        Table_No: yup.string(),
+        Table_No: yup.number(),
     });
 
     const { register, handleSubmit } = useForm({
@@ -29,12 +34,22 @@ export const OrderScreen = (): ReactElement => {
     const [ordersTest, setOrders] = useState(orders);
     const [searchValue, setSearchValue] = useState();
 
-    const onOrderSubmit = (e: any): void => {
+    const onAddOrder = (e: any): void => {
         console.log('onOrderSubmit', e);
+        const JsonTest = JSON.parse(e);
+        const request: OrderForm = {
+            Crust: JsonTest.Crust,
+            Flavor: JsonTest.Flavor,
+            Size: JsonTest.Size,
+            Table_No: e.Table_No,
+        };
+
+        dispatch(AddOrderAsync(request));
     };
 
-    const onOrderDelete = (e: any): void => {
-        console.log('onOrderDelete', e);
+    const onDeleteOrder = (orderNumber: number): void => {
+        console.log('onOrderDelete', orderNumber);
+        dispatch(DeleteOrderAsync(orderNumber));
     };
 
     // const onlogOut = (): void => {
@@ -96,7 +111,7 @@ export const OrderScreen = (): ReactElement => {
                 <Button
                     variant="contained"
                     size="medium"
-                    onClick={handleSubmit(onOrderSubmit)}
+                    onClick={handleSubmit(onAddOrder)}
                 >
                     Submit
                 </Button>
@@ -139,7 +154,7 @@ export const OrderScreen = (): ReactElement => {
                         <Button
                             variant="outlined"
                             size="medium"
-                            onClick={(e): void => onOrderDelete(e)}
+                            onClick={(): void => onDeleteOrder(order.Order_ID)}
                         >
                             X
                         </Button>

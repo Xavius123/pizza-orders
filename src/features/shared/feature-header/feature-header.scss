@@ -1,4 +1,9 @@
 .header {
     display: flex;
     justify-content: center;
+    margin: 10px 0;
+    //.header__text
+    &__text {
+        color: gray;
+    }
 }
