@@ -22,7 +22,7 @@
         "yup": "^0.32.11"
     },
     "scripts": {
-        "start": "react-scripts start",
+        "start": "set PORT=8080 && react-scripts start",
         "build": "react-scripts build"
     },
     "eslintConfig": {
@@ -45,5 +45,6 @@
     },
     "devDependencies": {
         "prettier": "2.7.1"
-    }
+    },
+    "proxy": "https://order-pizza-api.herokuapp.com"
 }

@@ -1,5 +1,5 @@
 import { Button, TextField } from '@mui/material';
-import React, { ReactElement, useState } from 'react';
+import React, { ReactElement } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
@@ -39,12 +39,14 @@ export const LoginPage = (): ReactElement => {
                     {...register('username')}
                     label="Username"
                     variant="standard"
+                    value="test"
                 />
                 <TextField
                     className="textField"
                     {...register('password')}
                     label="Password"
                     variant="standard"
+                    value="test"
                 />
                 <Button
                     variant="contained"
