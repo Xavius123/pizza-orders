@@ -21,11 +21,9 @@ export const LoginPage = (): ReactElement => {
     });
 
     const onLogin = (e: any) => {
-        console.log('username', e.username);
-        console.log('password', e.password);
         const request: Login = {
-            username: 'test',
-            password: 'test',
+            username: e.username,
+            password: e.password,
         };
         dispatch(LoginAsync(request));
     };
