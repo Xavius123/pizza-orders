@@ -10,7 +10,6 @@ import {
     GetOrdersAsync,
     OrderSelector,
     AddOrderAsync,
-    DeleteOrderAsync,
 } from '../../slices/orders.slice';
 import { AuthSelector } from '../../slices/auth.slice';
 import { FeatureHeader } from '../shared/feature-header/feature-header';
@@ -20,7 +19,9 @@ export const OrderScreen = (): ReactElement => {
     const dispatch = useAppDispatch();
     const { orders } = useAppSelector(OrderSelector);
     const { isLoginSuccessful } = useAppSelector(AuthSelector);
-
+    const [ordersList, setOrdersList] = useState(orders);
+    const [searchText, setSearchText] = useState('');
+    const excludeColumns = ['Size', 'Table', 'Time'];
     const OrderSchema = yup.object({
         Crust: yup.string(),
         Flavor: yup.string(),
@@ -31,9 +32,6 @@ export const OrderScreen = (): ReactElement => {
     const { register, handleSubmit } = useForm({
         resolver: yupResolver(OrderSchema),
     });
-
-    const [ordersTest, setOrders] = useState(orders);
-    const [searchValue, setSearchValue] = useState();
 
     const onAddOrder = (e: any): void => {
         console.log('onOrderSubmit', e);
@@ -47,25 +45,28 @@ export const OrderScreen = (): ReactElement => {
         dispatch(AddOrderAsync(request));
     };
 
-    const onDeleteOrder = (orderNumber: number): void => {
-        console.log('onOrderDelete', orderNumber);
-        dispatch(DeleteOrderAsync(orderNumber));
+    const handleSearch = (e: any) => {
+        setSearchText(e.target.value);
+        filterData(e.target.value);
     };
 
-    // const onlogOut = (): void => {
-    //     console.log('onlogOut');
-    //     sessionStorage.clear();
-    // };
-
-    const handleSearch = (e: any) => {
-        console.log('handleSearch', e.target.value);
-        setSearchValue(e.target.value);
-
-        const newList = ordersTest.filter(
-            (order: Order, i: any) => order === searchValue
-        );
-
-        setOrders(newList);
+    const filterData = (value: any) => {
+        console.log('v', value);
+        const lowercasedValue = value.toLowerCase().trim();
+        if (lowercasedValue === '') setOrdersList(orders);
+        else {
+            const filteredData = orders.filter((order: any) => {
+                return Object.keys(order).some((key) =>
+                    excludeColumns.includes(key)
+                        ? false
+                        : order[key]
+                              .toString()
+                              .toLowerCase()
+                              .includes(lowercasedValue)
+                );
+            });
+            setOrdersList(filteredData);
+        }
     };
 
     useEffect(() => {
@@ -73,7 +74,7 @@ export const OrderScreen = (): ReactElement => {
     }, []);
 
     useEffect(() => {
-        setOrders(orders);
+        setOrdersList(orders);
     }, [orders, isLoginSuccessful]);
 
     // if (isLoginSuccessful) {
@@ -119,14 +120,14 @@ export const OrderScreen = (): ReactElement => {
             <div className="search">
                 <TextField
                     className="textField"
-                    value={searchValue}
+                    value={searchText}
                     onChange={(e: any): void => handleSearch(e)}
-                    label="Size"
+                    label="Search"
                     variant="standard"
                 />
             </div>
             <div className="orders">
-                {ordersTest?.map((order: Order) => (
+                {ordersList?.map((order: Order) => (
                     <OrderCard order={order} />
                 ))}
             </div>
