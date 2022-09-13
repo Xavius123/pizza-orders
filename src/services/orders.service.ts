@@ -4,8 +4,7 @@ import { httpRequest } from './http.service';
 
 export const GetOrders = (): any => {
     const url = '/api/orders';
-    const payload = {};
-    return httpRequest(url, httpMethod.Get, payload)
+    return httpRequest(url, httpMethod.Get)
         .then((response: any) => {
             console.log(response);
             return response;
@@ -15,7 +14,13 @@ export const GetOrders = (): any => {
 
 export const AddOrders = (request: OrderForm): any => {
     const url = '/api/orders';
-    const payload = request;
+
+    const payload = {
+        Crust: request.Crust,
+        Flavor: request.Flavor,
+        Size: request.Size,
+        Table_No: request.Table_No,
+    };
     return httpRequest(url, httpMethod.Post, payload)
         .then((response: any) => {
             console.log(response);
@@ -26,8 +31,7 @@ export const AddOrders = (request: OrderForm): any => {
 
 export const DeleteOrder = (orderId: number): any => {
     const url = `/api/orders/${orderId}`;
-    const payload = {};
-    return httpRequest(url, httpMethod.Delete, payload)
+    return httpRequest(url, httpMethod.Delete)
         .then((response: any) => {
             console.log(response);
             return response;

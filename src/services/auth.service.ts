@@ -13,10 +13,8 @@ export const login = (request: Login): any => {
         .then((response: any) => {
             if (response.data) {
                 const { access_token } = response.data;
-                console.log('AT', access_token);
                 localStorage.setItem('access_token', access_token);
             }
-
             return response;
         })
         .catch((err: any) => err);

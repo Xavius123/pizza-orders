@@ -36,11 +36,10 @@ export const OrderScreen = (): ReactElement => {
 
     const onAddOrder = (e: any): void => {
         console.log('onOrderSubmit', e);
-        const JsonTest = JSON.parse(e);
         const request: OrderForm = {
-            Crust: JsonTest.Crust,
-            Flavor: JsonTest.Flavor,
-            Size: JsonTest.Size,
+            Crust: e.Crust,
+            Flavor: e.Flavor,
+            Size: e.Size,
             Table_No: e.Table_No,
         };
 
@@ -69,7 +68,6 @@ export const OrderScreen = (): ReactElement => {
     };
 
     useEffect(() => {
-        console.log('order page');
         dispatch(GetOrdersAsync());
     }, []);
 
@@ -107,6 +105,7 @@ export const OrderScreen = (): ReactElement => {
                     {...register('Table_No')}
                     label="Table"
                     variant="standard"
+                    type="number"
                 />
                 <Button
                     variant="contained"
@@ -127,34 +126,35 @@ export const OrderScreen = (): ReactElement => {
             </div>
             <div className="orders">
                 {ordersTest?.map((order: Order) => (
-                    <div key={order.Order_ID} className="order">
+                    <div key={order?.Order_ID} className="order">
                         <div className="order__item">
                             <div className="order__name">Crust</div>
-                            {order.Crust}
+                            {order?.Crust}
                         </div>
                         <div className="order__item">
                             <div className="order__name">Flavor</div>
-                            {order.Flavor}
+                            {order?.Flavor}
                         </div>
                         <div className="order__item">
                             <div className="order__name">Order Number</div>
-                            {order.Order_ID}
+                            {order?.Order_ID}
                         </div>
                         <div className="order__item">
-                            <div className="order__name">Size</div> {order.Size}
+                            <div className="order__name">Size</div>{' '}
+                            {order?.Size}
                         </div>
                         <div className="order__item">
                             <div className="order__name">Table</div>
-                            {order.Table_No}
+                            {order?.Table_No}
                         </div>
                         <div className="order__item">
                             <div className="order__name">Time</div>
-                            {order.Timestamp}
+                            {order?.Timestamp}
                         </div>
                         <Button
                             variant="outlined"
                             size="medium"
-                            onClick={(): void => onDeleteOrder(order.Order_ID)}
+                            onClick={(): void => onDeleteOrder(order?.Order_ID)}
                         >
                             X
                         </Button>

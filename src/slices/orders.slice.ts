@@ -62,9 +62,11 @@ export const ordersSlice = createSlice({
             })
             .addCase(AddOrderAsync.fulfilled, (state, action) => {
                 state.statusAddOrdersAsync = AsyncRequestStatus.Fulfilled;
-                const newOrder: Order = action.payload;
-                // might need to map over return object to become correct model
-                state.orders = [newOrder, ...state.orders];
+                console.log(action.payload);
+                const newOrder: Order = action.payload.data;
+                if (newOrder) {
+                    state.orders = [newOrder, ...state.orders];
+                }
             })
             .addCase(AddOrderAsync.rejected, (state) => {
                 state.statusAddOrdersAsync = AsyncRequestStatus.Rejected;
@@ -75,19 +77,14 @@ export const ordersSlice = createSlice({
             })
             .addCase(DeleteOrderAsync.fulfilled, (state, action) => {
                 state.statusDeleteOrderAsync = AsyncRequestStatus.Fulfilled;
-
                 const deletedOrderNumber = action.meta.arg;
-                // const orderss = state.orders;
-                // console.log('orders', orderss);
-                // const orderList = orderss.filter(
-                //     (order) => order.Order_ID !== deletedOrderNumber
-                // );
-                state.orders = [
-                    ...state.orders.filter(
-                        (order) => order.Order_ID !== deletedOrderNumber
-                    ),
-                ];
-                //console.log('newList', orderList);
+                if (deletedOrderNumber) {
+                    state.orders = [
+                        ...state.orders.filter(
+                            (order) => order.Order_ID !== deletedOrderNumber
+                        ),
+                    ];
+                }
             })
             .addCase(DeleteOrderAsync.rejected, (state) => {
                 state.statusDeleteOrderAsync = AsyncRequestStatus.Rejected;

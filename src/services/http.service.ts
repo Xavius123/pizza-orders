@@ -2,11 +2,12 @@ import axios, { AxiosPromise } from 'axios';
 import { httpMethod } from '../enums/http-method.enum';
 
 const token = localStorage.getItem('access_token');
-axios.defaults.headers.common = { Authorization: `bearer ${token}` };
+axios.defaults.headers.common = { Authorization: `Bearer ${token}` };
+
 export const httpRequest = (
     endpoint: string,
     methodType: httpMethod,
-    payload: any
+    payload?: any
 ): AxiosPromise<any> =>
     axios({
         url: endpoint,
