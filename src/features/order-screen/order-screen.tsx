@@ -128,8 +128,8 @@ export const OrderScreen = (): ReactElement => {
                 <div>{orderFormText}</div>
             </div>
             <div className="orders">
-                {ordersList?.map((order: Order) => (
-                    <OrderCard order={order} />
+                {ordersList?.map((order: Order, i: number) => (
+                    <OrderCard order={order} i={i} />
                 ))}
             </div>
             {/* <Button

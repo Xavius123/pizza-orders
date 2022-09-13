@@ -7,17 +7,18 @@ import { Order } from '../../models';
 
 interface OrderCardProps {
     order: Order;
+    i: number;
 }
 
 export const OrderCard = (props: OrderCardProps): ReactElement => {
-    const { order } = props;
+    const { order, i } = props;
     const dispatch = useAppDispatch();
     const onDeleteOrder = (orderNumber: number): void => {
         dispatch(DeleteOrderAsync(orderNumber));
     };
 
     return (
-        <div key={order.Order_ID} className="card">
+        <div key={i} className="card">
             <div className="card__button">
                 <div className="card__title">Order Number {order.Order_ID}</div>
                 <Button

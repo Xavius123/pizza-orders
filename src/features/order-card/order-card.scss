@@ -21,10 +21,12 @@
     &__item {
         font-size: 18px;
         display: flex;
+        color: gray;
     }
     //.card__name
     &__name {
         padding-right: 5px;
         font-weight: bold;
+        color: black;
     }
 }
