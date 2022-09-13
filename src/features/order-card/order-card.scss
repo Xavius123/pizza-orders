@@ -1,0 +1,30 @@
+.card {
+    border: 1px solid gray;
+    font-size: 15px;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 10px;
+
+    //.card__title
+    &__title {
+        font-size: 25px;
+        font-weight: bold;
+    }
+    //.card__button
+    &__button {
+        display: flex;
+        justify-content: space-around;
+    }
+    //.card__item
+    &__item {
+        font-size: 18px;
+        display: flex;
+    }
+    //.card__name
+    &__name {
+        padding-right: 5px;
+        font-weight: bold;
+    }
+}

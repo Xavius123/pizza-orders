@@ -14,6 +14,7 @@ import {
 } from '../../slices/orders.slice';
 import { AuthSelector } from '../../slices/auth.slice';
 import { FeatureHeader } from '../shared/feature-header/feature-header';
+import { OrderCard } from '../order-card/order-card';
 
 export const OrderScreen = (): ReactElement => {
     const dispatch = useAppDispatch();
@@ -126,39 +127,7 @@ export const OrderScreen = (): ReactElement => {
             </div>
             <div className="orders">
                 {ordersTest?.map((order: Order) => (
-                    <div key={order?.Order_ID} className="order">
-                        <div className="order__item">
-                            <div className="order__name">Crust</div>
-                            {order?.Crust}
-                        </div>
-                        <div className="order__item">
-                            <div className="order__name">Flavor</div>
-                            {order?.Flavor}
-                        </div>
-                        <div className="order__item">
-                            <div className="order__name">Order Number</div>
-                            {order?.Order_ID}
-                        </div>
-                        <div className="order__item">
-                            <div className="order__name">Size</div>{' '}
-                            {order?.Size}
-                        </div>
-                        <div className="order__item">
-                            <div className="order__name">Table</div>
-                            {order?.Table_No}
-                        </div>
-                        <div className="order__item">
-                            <div className="order__name">Time</div>
-                            {order?.Timestamp}
-                        </div>
-                        <Button
-                            variant="outlined"
-                            size="medium"
-                            onClick={(): void => onDeleteOrder(order?.Order_ID)}
-                        >
-                            X
-                        </Button>
-                    </div>
+                    <OrderCard order={order} />
                 ))}
             </div>
             {/* <Button
