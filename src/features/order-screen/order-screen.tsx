@@ -17,7 +17,7 @@ import { OrderCard } from '../order-card/order-card';
 
 export const OrderScreen = (): ReactElement => {
     const dispatch = useAppDispatch();
-    const { orders } = useAppSelector(OrderSelector);
+    const { orders, orderFormText } = useAppSelector(OrderSelector);
     const { isLoginSuccessful } = useAppSelector(AuthSelector);
     const [ordersList, setOrdersList] = useState(orders);
     const [searchText, setSearchText] = useState('');
@@ -125,6 +125,7 @@ export const OrderScreen = (): ReactElement => {
                     label="Search"
                     variant="standard"
                 />
+                <div>{orderFormText}</div>
             </div>
             <div className="orders">
                 {ordersList?.map((order: Order) => (

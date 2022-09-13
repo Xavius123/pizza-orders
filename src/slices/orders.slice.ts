@@ -6,6 +6,7 @@ import { RootState } from '../store/store';
 
 export interface OrdersState {
     orders: Order[];
+    orderFormText: string;
     statusGetOrdersAsync: AsyncRequestStatus;
     statusAddOrdersAsync: AsyncRequestStatus;
     statusDeleteOrderAsync: AsyncRequestStatus;
@@ -13,6 +14,7 @@ export interface OrdersState {
 
 const initialState: OrdersState = {
     orders: [],
+    orderFormText: '',
     statusGetOrdersAsync: AsyncRequestStatus.Idle,
     statusAddOrdersAsync: AsyncRequestStatus.Idle,
     statusDeleteOrderAsync: AsyncRequestStatus.Idle,
@@ -51,7 +53,7 @@ export const ordersSlice = createSlice({
             })
             .addCase(GetOrdersAsync.fulfilled, (state, action) => {
                 state.statusGetOrdersAsync = AsyncRequestStatus.Fulfilled;
-                state.orders = action.payload.data;
+                state.orders = action.payload.data.reverse();
             })
             .addCase(GetOrdersAsync.rejected, (state) => {
                 state.statusGetOrdersAsync = AsyncRequestStatus.Rejected;
@@ -62,10 +64,19 @@ export const ordersSlice = createSlice({
             })
             .addCase(AddOrderAsync.fulfilled, (state, action) => {
                 state.statusAddOrdersAsync = AsyncRequestStatus.Fulfilled;
-                console.log(action.payload);
-                const newOrder: Order = action.payload.data;
-                if (newOrder) {
+
+                const { status } = action.payload;
+                if (status === 201) {
+                    state.orderFormText = 'Order Created';
+                    const newOrder: Order = action.payload.data;
                     state.orders = [newOrder, ...state.orders];
+                } else {
+                    const { status } = action.payload.response;
+                    const { detail } = action.payload.response.data;
+
+                    if (status === 409) {
+                        state.orderFormText = detail;
+                    }
                 }
             })
             .addCase(AddOrderAsync.rejected, (state) => {
