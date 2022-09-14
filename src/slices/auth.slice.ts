@@ -6,12 +6,16 @@ import { Login } from '../models';
 
 export interface AuthState {
     isLoginSuccessful: boolean;
+    isAuthenticated: boolean;
     statusLogIn: AsyncRequestStatus;
+    statusLogout: AsyncRequestStatus;
 }
 
 const initialState: AuthState = {
     isLoginSuccessful: false,
+    isAuthenticated: false,
     statusLogIn: AsyncRequestStatus.Idle,
+    statusLogout: AsyncRequestStatus.Idle,
 };
 
 export const LoginAsync = createAsyncThunk(
@@ -21,6 +25,8 @@ export const LoginAsync = createAsyncThunk(
         return response;
     }
 );
+
+export const LogoutAsync = createAsyncThunk('auth/Logout', async () => {});
 
 export const authSlice = createSlice({
     name: 'auth',
@@ -38,6 +44,18 @@ export const authSlice = createSlice({
             })
             .addCase(LoginAsync.rejected, (state) => {
                 state.statusLogIn = AsyncRequestStatus.Rejected;
+            })
+            // Logout
+            .addCase(LogoutAsync.pending, (state) => {
+                state.statusLogout = AsyncRequestStatus.Pending;
+            })
+            .addCase(LogoutAsync.fulfilled, (state) => {
+                state.statusLogout = AsyncRequestStatus.Fulfilled;
+                localStorage.clear();
+                state.isLoginSuccessful = false;
+            })
+            .addCase(LogoutAsync.rejected, (state) => {
+                state.statusLogout = AsyncRequestStatus.Rejected;
             });
     },
 });

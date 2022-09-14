@@ -1,6 +1,19 @@
+.order-screen {
+    // display: flex;
+    // flex-direction: column;
+}
+
 .order-page {
     display: flex;
+    margin-top: 125px;
+    // display: grid;
+    // grid-template-columns: 200px 200px;
+}
+
+.columns {
+    display: flex;
     flex-direction: column;
+    margin: 75px;
 }
 
 .orderForm {

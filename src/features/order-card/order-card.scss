@@ -29,4 +29,8 @@
         font-weight: bold;
         color: black;
     }
+    //.card__text
+    &__text {
+        text-transform: uppercase;
+    }
 }
