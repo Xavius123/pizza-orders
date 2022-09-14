@@ -1,12 +1,12 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { AsyncRequestStatus } from '../enums/async-request-status.enum';
+import { toasterError, toasterSuccess } from '../helper';
 import { Order, OrderForm } from '../models';
 import { AddOrders, DeleteOrder, GetOrders } from '../services';
 import { RootState } from '../store/store';
 
 export interface OrdersState {
     orders: Order[];
-    orderFormText: string;
     statusGetOrdersAsync: AsyncRequestStatus;
     statusAddOrdersAsync: AsyncRequestStatus;
     statusDeleteOrderAsync: AsyncRequestStatus;
@@ -14,7 +14,6 @@ export interface OrdersState {
 
 const initialState: OrdersState = {
     orders: [],
-    orderFormText: '',
     statusGetOrdersAsync: AsyncRequestStatus.Idle,
     statusAddOrdersAsync: AsyncRequestStatus.Idle,
     statusDeleteOrderAsync: AsyncRequestStatus.Idle,
@@ -71,7 +70,7 @@ export const ordersSlice = createSlice({
 
                 const { status } = action.payload;
                 if (status === 201) {
-                    state.orderFormText = 'Order Created';
+                    toasterSuccess('Order Created');
                     const newOrder: Order = action.payload.data;
                     state.orders = [newOrder, ...state.orders];
                 } else {
@@ -79,12 +78,13 @@ export const ordersSlice = createSlice({
                     const { detail } = action.payload.response.data;
 
                     if (status === 409) {
-                        state.orderFormText = detail;
+                        toasterError(detail);
                     }
                 }
             })
             .addCase(AddOrderAsync.rejected, (state) => {
                 state.statusAddOrdersAsync = AsyncRequestStatus.Rejected;
+                toasterError('Error');
             })
             // Delete Orders
             .addCase(DeleteOrderAsync.pending, (state) => {
@@ -99,10 +99,12 @@ export const ordersSlice = createSlice({
                             (order) => order.Order_ID !== deletedOrderNumber
                         ),
                     ];
+                    toasterSuccess(`Order ${deletedOrderNumber} Removed`);
                 }
             })
             .addCase(DeleteOrderAsync.rejected, (state) => {
                 state.statusDeleteOrderAsync = AsyncRequestStatus.Rejected;
+                toasterError('Error');
             });
     },
 });

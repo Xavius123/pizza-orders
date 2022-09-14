@@ -19,8 +19,7 @@ import { AsyncRequestStatus } from '../../enums';
 
 export const OrderScreen = (): ReactElement => {
     const dispatch = useAppDispatch();
-    const { orders, orderFormText, statusGetOrdersAsync } =
-        useAppSelector(OrderSelector);
+    const { orders, statusGetOrdersAsync } = useAppSelector(OrderSelector);
     const { isLoginSuccessful } = useAppSelector(AuthSelector);
     const [ordersList, setOrdersList] = useState(orders);
     const [searchText, setSearchText] = useState('');
@@ -127,7 +126,6 @@ export const OrderScreen = (): ReactElement => {
                             Submit
                         </Button>
                     </div>
-                    <div>{orderFormText}</div>
                     <Button
                         variant="contained"
                         size="medium"
