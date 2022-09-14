@@ -26,13 +26,20 @@ export const OrderScreen = (): ReactElement => {
     const [filterText, setFilterText] = useState<string>('');
     const excludeColumns: string[] = ['Size', 'Table', 'Time'];
     const OrderSchema = yup.object({
-        Crust: yup.string(),
-        Flavor: yup.string(),
-        Size: yup.string(),
-        Table_No: yup.number(),
+        Crust: yup.string().required(),
+        Flavor: yup.string().required(),
+        Size: yup.string().required(),
+        Table_No: yup.number().required(),
     });
 
-    const { register, handleSubmit } = useForm({
+    const {
+        register,
+        handleSubmit,
+        formState: { isValid },
+    } = useForm({
+        mode: 'all',
+        criteriaMode: 'all',
+        reValidateMode: 'onChange',
         resolver: yupResolver(OrderSchema),
     });
 
@@ -119,6 +126,7 @@ export const OrderScreen = (): ReactElement => {
                             <Button
                                 variant="contained"
                                 size="medium"
+                                disabled={!isValid}
                                 onClick={handleSubmit(onAddOrder)}
                             >
                                 Submit
