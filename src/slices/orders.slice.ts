@@ -44,7 +44,11 @@ export const DeleteOrderAsync = createAsyncThunk(
 export const ordersSlice = createSlice({
     name: 'orders',
     initialState,
-    reducers: {},
+    reducers: {
+        setOrders: (state) => {
+            state.orders = [];
+        },
+    },
     extraReducers: (builder) => {
         builder
             // Get Orders
@@ -103,6 +107,7 @@ export const ordersSlice = createSlice({
     },
 });
 
+export const { setOrders } = ordersSlice.actions;
 export const OrderSelector = (state: RootState): any => state.orders;
 
 export default ordersSlice.reducer;

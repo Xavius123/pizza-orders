@@ -4,5 +4,5 @@ export interface Order {
     Order_ID: number;
     Size: string;
     Table_No: number;
-    Timestamp: any;
+    Timestamp: string;
 }
