@@ -69,7 +69,7 @@ export const ordersSlice = createSlice({
                 state.statusAddOrdersAsync = AsyncRequestStatus.Fulfilled;
 
                 const { status } = action.payload;
-                if (status === 201) {
+                if (status >= 200) {
                     toasterSuccess('Order Created');
                     const newOrder: Order = action.payload.data;
                     state.orders = [newOrder, ...state.orders];
@@ -77,7 +77,7 @@ export const ordersSlice = createSlice({
                     const { status } = action.payload.response;
                     const { detail } = action.payload.response.data;
 
-                    if (status === 409) {
+                    if (status >= 400) {
                         toasterError(detail);
                     }
                 }

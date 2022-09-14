@@ -42,12 +42,12 @@ export const authSlice = createSlice({
             .addCase(LoginAsync.fulfilled, (state, action) => {
                 state.statusLogIn = AsyncRequestStatus.Fulfilled;
                 const { status } = action.payload;
-                if (status === 200) {
+                if (status >= 200) {
                     state.isLoginSuccessful = true;
                 } else {
                     const { status } = action.payload.response;
-                    if (status === 400 || 401) {
-                        toasterError(`Error logging in ${status}`);
+                    if (status >= 400) {
+                        toasterError(`Error logging in, status code ${status}`);
                     }
                 }
             })
