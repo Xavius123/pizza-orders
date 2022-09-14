@@ -8,7 +8,7 @@ import { OrderScreen } from '../features/order-screen/order-screen';
 export const App = (): ReactElement => {
     return (
         <div className="App">
-            <div className="title">Dan's Pizza Orders</div>
+            <div className="App__title">Dan's Pizza Orders</div>
             <Routes>
                 <Route path="/" element={<LoginPage />} />
                 <Route path="/layout" element={<Layout />}>

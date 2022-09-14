@@ -1,3 +1,7 @@
+/*---------------------------------------------------------------------------
+   Order Screen
+---------------------------------------------------------------------------*/
+
 .order-screen {
     // display: flex;
     // flex-direction: column;
@@ -5,15 +9,17 @@
 
 .order-page {
     display: flex;
-    margin-top: 125px;
-    // display: grid;
-    // grid-template-columns: 200px 200px;
+    margin-top: 50px;
 }
 
 .columns {
     display: flex;
     flex-direction: column;
     margin: 75px;
+}
+
+.textSearchField {
+    width: 400px;
 }
 
 .orderForm {
@@ -23,18 +29,4 @@
     width: 300px;
     display: flex;
     flex-direction: column;
-}
-
-.orders {
-    // display: grid;
-    // max-height: 200px;
-    // grid-template-columns: repeat(auto-fill, 250px);
-    // column-gap: toRem(20px);
-    // row-gap: toRem(20px);
-    // display: flex;
-    // flex-direction: column;
-    // flex-wrap: wrap;
-    // align-content: flex-start;
-    // max-height: 180vh;
-    // width: 100%;
 }

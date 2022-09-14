@@ -1,3 +1,7 @@
+/*---------------------------------------------------------------------------
+   Card
+---------------------------------------------------------------------------*/
+
 .card {
     border: 1px solid gray;
     font-size: 15px;
@@ -6,6 +10,7 @@
     padding: 10px;
     margin: 10px;
     border-radius: 10px;
+    min-width: 300px;
 
     //.card__title
     &__title {
@@ -15,7 +20,7 @@
     //.card__button
     &__button {
         display: flex;
-        justify-content: space-around;
+        justify-content: space-between;
     }
     //.card__item
     &__item {

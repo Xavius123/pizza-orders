@@ -89,10 +89,6 @@ export const OrderScreen = (): ReactElement => {
         setOrdersList(orders);
     }, [orders, isLoginSuccessful]);
 
-    // if (isLoginSuccessful) {
-    //     return <Navigate to="/" />;
-    // }
-
     return (
         <div className="order-screen">
             <FeatureHeader headerText="Order Form" />
@@ -142,7 +138,7 @@ export const OrderScreen = (): ReactElement => {
                 </div>
                 <div className="columns">
                     <TextField
-                        className="textField"
+                        className="textSearchField"
                         value={searchText}
                         onChange={(e: any): void => handleSearch(e)}
                         label="Search"
