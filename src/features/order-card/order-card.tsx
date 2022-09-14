@@ -21,21 +21,14 @@ export const OrderCard = (props: OrderCardProps): ReactElement => {
     const getDateTime = (timeStamp: string): string => {
         let newTime = '';
         const time = new Date(timeStamp);
-
         const minutes = (time.getMinutes() < 10 ? '0' : '') + time.getMinutes();
         const month = time.getMonth() + 1;
         const day = time.getUTCDate();
         const seconds = time.getUTCSeconds();
         let hours = time.getHours();
-
-        if (hours > 12) {
-            hours -= 12;
-        } else if (hours === 0) {
-            hours = 12;
-            setMeridiem('PM');
-        }
-
-        newTime = `${month}/${day} ${hours}:${minutes}:${seconds} ${meridiem}`;
+        hours = hours + 7;
+        const ampm = hours >= 12 ? 'pm' : 'am';
+        newTime = `${month}/${day} ${hours}:${minutes}:${seconds} ${ampm}`;
 
         return newTime;
     };
