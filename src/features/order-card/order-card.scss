@@ -15,7 +15,7 @@
     //.card__button
     &__button {
         display: flex;
-        justify-content: space-between;
+        justify-content: space-around;
     }
     //.card__item
     &__item {
@@ -28,9 +28,5 @@
         padding-right: 5px;
         font-weight: bold;
         color: black;
-    }
-    //.card__text
-    &__text {
-        text-transform: uppercase;
     }
 }
