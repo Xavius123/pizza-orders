@@ -43,12 +43,12 @@ export const OrderScreen = (): ReactElement => {
         resolver: yupResolver(OrderSchema),
     });
 
-    const onAddOrder = (e: any): void => {
+    const onAddOrder = (order: any): void => {
         const request: OrderForm = {
-            Crust: e.Crust,
-            Flavor: e.Flavor,
-            Size: e.Size,
-            Table_No: e.Table_No,
+            Crust: order.Crust,
+            Flavor: order.Flavor,
+            Size: order.Size,
+            Table_No: order.Table_No,
         };
 
         dispatch(AddOrderAsync(request));
