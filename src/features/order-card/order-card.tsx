@@ -1,5 +1,5 @@
 import { Button } from '@mui/material';
-import React, { ReactElement, useState } from 'react';
+import React, { ReactElement } from 'react';
 import './order-card.scss';
 import { useAppDispatch } from '../../hooks/hooks';
 import { DeleteOrderAsync } from '../../slices/orders.slice';
@@ -7,13 +7,12 @@ import { Order } from '../../models';
 
 interface OrderCardProps {
     order: Order;
-    i: number;
+    index: number;
 }
 
 export const OrderCard = (props: OrderCardProps): ReactElement => {
-    const { order, i } = props;
+    const { order, index } = props;
     const dispatch = useAppDispatch();
-    const [meridiem, setMeridiem] = useState('AM');
     const onDeleteOrder = (orderNumber: number): void => {
         dispatch(DeleteOrderAsync(orderNumber));
     };
@@ -34,7 +33,7 @@ export const OrderCard = (props: OrderCardProps): ReactElement => {
     };
 
     return (
-        <div key={i} className="card">
+        <div key={index} className="card">
             <div className="card__button">
                 <div className="card__title">Order No. {order.Order_ID}</div>
                 <Button

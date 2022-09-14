@@ -21,10 +21,10 @@ export const OrderScreen = (): ReactElement => {
     const dispatch = useAppDispatch();
     const { orders, statusGetOrdersAsync } = useAppSelector(OrderSelector);
     const { isLoginSuccessful } = useAppSelector(AuthSelector);
-    const [ordersList, setOrdersList] = useState(orders);
-    const [searchText, setSearchText] = useState('');
-    const [filterText, setFilterText] = useState('');
-    const excludeColumns = ['Size', 'Table', 'Time'];
+    const [ordersList, setOrdersList] = useState<Order[]>(orders);
+    const [searchText, setSearchText] = useState<string>('');
+    const [filterText, setFilterText] = useState<string>('');
+    const excludeColumns: string[] = ['Size', 'Table', 'Time'];
     const OrderSchema = yup.object({
         Crust: yup.string(),
         Flavor: yup.string(),
@@ -47,7 +47,7 @@ export const OrderScreen = (): ReactElement => {
         dispatch(AddOrderAsync(request));
     };
 
-    const handleSearch = (e: any) => {
+    const handleSearch = (e: any): void => {
         setSearchText(e.target.value);
         filterData(e.target.value);
     };
@@ -57,7 +57,7 @@ export const OrderScreen = (): ReactElement => {
         dispatch(setOrders());
     };
 
-    const filterData = (value: any) => {
+    const filterData = (value: string) => {
         const lowercasedValue = value.toLowerCase().trim();
         if (lowercasedValue === '') setOrdersList(orders);
         else {
@@ -146,11 +146,11 @@ export const OrderScreen = (): ReactElement => {
                     {filterText}
                     <div>
                         {statusGetOrdersAsync === AsyncRequestStatus.Pending ? (
-                            '...Loading'
+                            'Loading...'
                         ) : (
                             <div className="orders">
                                 {ordersList?.map((order: Order, i: number) => (
-                                    <OrderCard order={order} i={i} />
+                                    <OrderCard order={order} index={i} />
                                 ))}
                             </div>
                         )}
