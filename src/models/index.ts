@@ -1,3 +1,3 @@
 export * from './order';
 export * from './login';
-export * from './orderForm';
+export * from './order-form';

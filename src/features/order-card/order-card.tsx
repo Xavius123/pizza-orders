@@ -71,7 +71,7 @@ export const OrderCard = (props: OrderCardProps): ReactElement => {
             </div>
             <div className="card__item">
                 <div className="card__name">Time:</div>
-                {/* <div className="card__text">{getDateTime(order.Timestamp)}</div> */}
+                <div className="card__text">{getDateTime(order.Timestamp)}</div>
             </div>
         </div>
     );
