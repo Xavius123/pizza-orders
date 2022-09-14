@@ -4,6 +4,7 @@ import './order-card.scss';
 import { useAppDispatch } from '../../hooks/hooks';
 import { DeleteOrderAsync } from '../../slices/orders.slice';
 import { Order } from '../../models';
+import { getDateTime } from '../../helper';
 
 interface OrderCardProps {
     order: Order;
@@ -15,21 +16,6 @@ export const OrderCard = (props: OrderCardProps): ReactElement => {
     const dispatch = useAppDispatch();
     const onDeleteOrder = (orderNumber: number): void => {
         dispatch(DeleteOrderAsync(orderNumber));
-    };
-
-    const getDateTime = (timeStamp: string): string => {
-        let newTime = '';
-        const time = new Date(timeStamp);
-        const minutes = (time.getMinutes() < 10 ? '0' : '') + time.getMinutes();
-        const month = time.getMonth() + 1;
-        const day = time.getUTCDate();
-        const seconds = time.getUTCSeconds();
-        let hours = time.getHours();
-        hours = hours + 7;
-        const ampm = hours >= 12 ? 'pm' : 'am';
-        newTime = `${month}/${day} ${hours}:${minutes}:${seconds} ${ampm}`;
-
-        return newTime;
     };
 
     return (

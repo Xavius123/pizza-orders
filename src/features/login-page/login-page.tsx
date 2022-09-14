@@ -15,11 +15,18 @@ export const LoginPage = (): ReactElement => {
     const { isLoginSuccessful } = useAppSelector(AuthSelector);
 
     const loginSchema = yup.object({
-        username: yup.string(),
-        password: yup.string(),
+        username: yup.string().required(),
+        password: yup.string().required(),
     });
 
-    const { register, handleSubmit } = useForm({
+    const {
+        register,
+        handleSubmit,
+        formState: { isValid },
+    } = useForm({
+        mode: 'all',
+        criteriaMode: 'all',
+        reValidateMode: 'onChange',
         resolver: yupResolver(loginSchema),
     });
 
@@ -53,6 +60,7 @@ export const LoginPage = (): ReactElement => {
                     <Button
                         variant="contained"
                         size="medium"
+                        disabled={!isValid}
                         onClick={handleSubmit(onLogin)}
                     >
                         Login

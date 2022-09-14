@@ -3,8 +3,6 @@ import { Navigate, Outlet } from 'react-router-dom';
 import { useAppSelector } from '../../hooks/hooks';
 import { AuthSelector } from '../../slices/auth.slice';
 
-// add authentication check
-
 export const Layout = (): ReactElement => {
     const { isLoginSuccessful } = useAppSelector(AuthSelector);
     if (!isLoginSuccessful) {
