@@ -3,6 +3,7 @@ import { AsyncRequestStatus } from '../enums';
 import { RootState } from '../store/store';
 import { login } from '../services/auth.service';
 import { Login } from '../models';
+import { toasterError } from '../helper';
 
 export interface AuthState {
     isLoginSuccessful: boolean;
@@ -40,7 +41,15 @@ export const authSlice = createSlice({
             })
             .addCase(LoginAsync.fulfilled, (state, action) => {
                 state.statusLogIn = AsyncRequestStatus.Fulfilled;
-                state.isLoginSuccessful = true;
+                const { status } = action.payload;
+                if (status === 200) {
+                    state.isLoginSuccessful = true;
+                } else {
+                    const { status } = action.payload.response;
+                    if (status === 400 || 401) {
+                        toasterError(`Error logging in ${status}`);
+                    }
+                }
             })
             .addCase(LoginAsync.rejected, (state) => {
                 state.statusLogIn = AsyncRequestStatus.Rejected;

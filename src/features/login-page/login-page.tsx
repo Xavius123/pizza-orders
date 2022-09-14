@@ -43,13 +43,11 @@ export const LoginPage = (): ReactElement => {
                     {...register('username')}
                     label="Username"
                     variant="standard"
-                    value="test"
                 />
                 <TextField
                     {...register('password')}
                     label="Password"
                     variant="standard"
-                    value="test"
                 />
                 <div className="login-page__button">
                     <Button
