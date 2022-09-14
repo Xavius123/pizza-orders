@@ -38,28 +38,28 @@ export const LoginPage = (): ReactElement => {
     return (
         <div className="login-page">
             <FeatureHeader headerText="Login Page" />
-            <div className="login">
+            <div className="login-page__form">
                 <TextField
-                    className="textField"
                     {...register('username')}
                     label="Username"
                     variant="standard"
                     value="test"
                 />
                 <TextField
-                    className="textField"
                     {...register('password')}
                     label="Password"
                     variant="standard"
                     value="test"
                 />
-                <Button
-                    variant="contained"
-                    size="medium"
-                    onClick={handleSubmit(onLogin)}
-                >
-                    Login
-                </Button>
+                <div className="login-page__button">
+                    <Button
+                        variant="contained"
+                        size="medium"
+                        onClick={handleSubmit(onLogin)}
+                    >
+                        Login
+                    </Button>
+                </div>
             </div>
         </div>
     );

@@ -91,23 +91,20 @@ export const OrderScreen = (): ReactElement => {
     return (
         <div className="order-screen">
             <FeatureHeader headerText="Order Form" />
-            <div className="order-page">
-                <div className="columns">
-                    <div className="orderForm">
+            <div className="order-screen__order-page">
+                <div className="column">
+                    <div className="form">
                         <TextField
-                            className="textField"
                             {...register('Crust')}
                             label="Crust"
                             variant="standard"
                         />
                         <TextField
-                            className="textField"
                             {...register('Flavor')}
                             label="Flavor"
                             variant="standard"
                         />
                         <TextField
-                            className="textField"
                             {...register('Size')}
                             label="Size"
                             variant="standard"
@@ -118,23 +115,27 @@ export const OrderScreen = (): ReactElement => {
                             variant="standard"
                             type="number"
                         />
+                        <div className="form__button">
+                            <Button
+                                variant="contained"
+                                size="medium"
+                                onClick={handleSubmit(onAddOrder)}
+                            >
+                                Submit
+                            </Button>
+                        </div>
+                    </div>
+                    <div className="logout">
                         <Button
                             variant="contained"
                             size="medium"
-                            onClick={handleSubmit(onAddOrder)}
+                            onClick={(): void => onlogOut()}
                         >
-                            Submit
+                            LogOut
                         </Button>
                     </div>
-                    <Button
-                        variant="contained"
-                        size="medium"
-                        onClick={(): void => onlogOut()}
-                    >
-                        LogOut
-                    </Button>
                 </div>
-                <div className="columns">
+                <div className="column">
                     <TextField
                         className="textSearchField"
                         value={searchText}

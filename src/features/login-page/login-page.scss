@@ -2,12 +2,22 @@
    Login
 ---------------------------------------------------------------------------*/
 
-.login {
-    border: 1px solid gray;
-    border-radius: 15px;
-    padding: 10px;
-    width: 300px;
-    display: flex;
-    flex-direction: column;
-    margin-top: 50px;
+.login-page {
+    //.login-page__form
+    &__form {
+        border: 1px solid gray;
+        border-radius: 15px;
+        padding: 10px;
+        width: 300px;
+        display: flex;
+        flex-direction: column;
+        margin-top: 50px;
+    }
+
+    //.login-page__button
+    &__button {
+        display: flex;
+        justify-content: center;
+        margin-top: 10px;
+    }
 }

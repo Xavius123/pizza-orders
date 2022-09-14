@@ -3,30 +3,53 @@
 ---------------------------------------------------------------------------*/
 
 .order-screen {
-    // display: flex;
-    // flex-direction: column;
+    //.order-screen__order-page
+    &__order-page {
+        display: flex;
+        margin-top: 50px;
+    }
 }
 
-.order-page {
-    display: flex;
-    margin-top: 50px;
-}
+/*  Column
+---------------------------------------------------------------------------*/
 
-.columns {
+.column {
     display: flex;
     flex-direction: column;
     margin: 75px;
 }
 
-.textSearchField {
-    width: 400px;
-}
+/*  Form
+---------------------------------------------------------------------------*/
 
-.orderForm {
+.form {
     border: 1px solid gray;
     border-radius: 15px;
     padding: 10px;
     width: 300px;
     display: flex;
     flex-direction: column;
+
+    //.form__button
+    &__button {
+        display: flex;
+        justify-content: center;
+        margin-top: 10px;
+    }
+}
+
+/*  Logout
+---------------------------------------------------------------------------*/
+
+.logout {
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+}
+
+/*  Text Search Field
+---------------------------------------------------------------------------*/
+
+.textSearchField {
+    width: 400px;
 }
